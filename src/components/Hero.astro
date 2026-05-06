@@ -8,7 +8,7 @@
     <h1><span class="gradient">Fikirleri</span><br>Ürüne Dönüştürüyoruz</h1>
     <p>Bir grup yazılımcı olarak gördüğümüz boşlukları doldurmak için bir araya geldik. Herkesin baktığı yere bakmak yerine kimsenin girmediği kapıları çalmayı tercih ediyoruz.</p>
     <div class="apple-cta">
-        <button class="apple-btn">Daha Fazla Bilgi</button>
+        <button class="apple-btn" id="products-btn">Ürünler</button>
         <button class="apple-btn secondary">İletişime Geç</button>
     </div>
     
@@ -208,12 +208,23 @@
 </style>
 
 <script>
-    const buttons = document.querySelectorAll('.apple-btn');
-    buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
+    const productsButton = document.querySelector('#products-btn');
+    const contactButton = document.querySelector('.apple-btn.secondary');
+
+    if (productsButton) {
+        productsButton.addEventListener('click', () => {
+            const productsSection = document.querySelector('#products');
+            if (productsSection) {
+                productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    }
+
+    if (contactButton) {
+        contactButton.addEventListener('click', () => {
             alert('İletişim için: 4ppstudioss@gmail.com');
         });
-    });
+    }
 /*
     const scrollIndicator = document.querySelector('.scroll-indicator');
     if (scrollIndicator) {

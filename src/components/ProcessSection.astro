@@ -1,0 +1,110 @@
+---
+---
+
+<div class="process-section">
+    <div class="process-item">
+        <div class="process-number">01</div>
+        <div class="process-content">
+            <h3>Araştırma</h3>
+            <p>Piyasayı analiz ediyor, fırsatları tespit ediyor ve potansiyel fikirleri değerlendiriyoruz. Veriye dayalı kararlar alıyoruz.</p>
+        </div>
+    </div>
+    <div class="process-item">
+        <div class="process-number">02</div>
+        <div class="process-content">
+            <h3>Prototipleme</h3>
+            <p>Fikirleri hızlıca hayata geçiriyor, çalışan prototipler geliştiriyor ve erken feedback topluyoruz. Deneme-yanılma süreci.</p>
+        </div>
+    </div>
+    <div class="process-item">
+        <div class="process-number">03</div>
+        <div class="process-content">
+            <h3>Geliştirme</h3>
+            <p>Ürünü production-ready hale getiriyor, özellikleri ekliyor ve kullanıcı deneyimini optimize ediyoruz. Sürekli iyileştirme.</p>
+        </div>
+    </div>
+    <div class="process-item">
+        <div class="process-number">04</div>
+        <div class="process-content">
+            <h3>Yayın</h3>
+            <p>Ürünü kullanıma sunuyor, metrikleri takip ediyor ve kullanıcı geri bildirimlerine göre geliştirmeye devam ediyoruz.</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .process-section {
+        padding: 0 20px 120px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .process-item {
+        padding: 60px 0;
+        border-bottom: 1px solid #f5f5f5;
+        display: flex;
+        align-items: flex-start;
+        gap: 50px;
+        transition: all 0.4s ease;
+    }
+
+    .process-item:last-child {
+        border-bottom: none;
+    }
+
+    .process-item:hover {
+        padding-left: 30px;
+    }
+
+    .process-number {
+        font-size: 5rem;
+        font-weight: 300;
+        line-height: 1;
+        color: #e5e5e5;
+        flex-shrink: 0;
+        transition: color 0.4s ease;
+    }
+
+    .process-item:hover .process-number {
+        color: #0071e3;
+    }
+
+    .process-content {
+        flex: 1;
+    }
+
+    .process-content h3 {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 16px;
+        letter-spacing: -0.02em;
+    }
+
+    .process-content p {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: #6e6e73;
+        font-weight: 300;
+    }
+
+    @media (max-width: 1024px) {
+        .process-item {
+            flex-direction: column;
+            gap: 20px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .process-item {
+            padding: 40px 0;
+        }
+
+        .process-number {
+            font-size: 3rem;
+        }
+
+        .process-content h3 {
+            font-size: 1.5rem;
+        }
+    }
+</style>

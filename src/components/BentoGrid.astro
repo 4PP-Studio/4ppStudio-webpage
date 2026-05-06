@@ -1,0 +1,140 @@
+---
+---
+
+<div class="bento-section">
+    <div class="bento-grid">
+        <div class="bento-item large">
+            <span class="icon">⚡</span>
+            <h3>Hızlı Geliştirme</h3>
+            <p>Gördüğümüz boşlukları doldurmak için kendi ürünlerimizi en kısa sürede geliştiriyoruz.</p>
+        </div>
+        <div class="bento-item small">
+            <span class="icon">🎯</span>
+            <h3>Ürün Odaklı</h3>
+            <p>Süreç odaklı değil, sonuç odaklıyız.</p>
+        </div>
+        <div class="bento-item small">
+            <span class="icon">🚀</span>
+            <h3>Hızlı İterasyon</h3>
+            <p>Sadece prototip değil, production-ready uygulamalar geliştiriyoruz.</p>
+        </div>
+        <div class="bento-item large">
+            <span class="icon">💡</span>
+            <h3>Dinamik Ekibimiz</h3>
+            <p>Esnek ve dinamik bir ekibiz. En değerli fırsatların keşfedilmemiş alanlarda saklı olduğuna inanıyoruz.</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bento-section {
+        padding: 0 20px 120px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .bento-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 24px;
+    }
+
+    .bento-item {
+        background: #f5f5f7;
+        border-radius: 28px;
+        padding: 60px 50px;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .bento-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 100%);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    .bento-item:hover::before {
+        opacity: 1;
+    }
+
+    .bento-item:hover {
+        transform: scale(1.03);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    }
+
+    .bento-item.large {
+        grid-column: span 8;
+    }
+
+    .bento-item.small {
+        grid-column: span 4;
+    }
+
+    .bento-item .icon {
+        font-size: 64px;
+        margin-bottom: 28px;
+        display: inline-block;
+        transition: transform 0.5s ease;
+    }
+
+    .bento-item:hover .icon {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    .bento-item h3 {
+        font-size: 32px;
+        font-weight: 600;
+        margin-bottom: 16px;
+        letter-spacing: -0.01em;
+    }
+
+    .bento-item p {
+        font-size: 21px;
+        color: #6e6e73;
+        line-height: 1.4;
+        max-width: 400px;
+        text-align: justify;
+    }
+
+    @media (max-width: 1024px) {
+        .bento-item.large,
+        .bento-item.small {
+            grid-column: span 6;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .bento-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .bento-item.large,
+        .bento-item.small {
+            grid-column: span 1;
+        }
+
+        .bento-item {
+            padding: 50px 35px;
+        }
+
+        .bento-item .icon {
+            font-size: 52px;
+        }
+
+        .bento-item h3 {
+            font-size: 26px;
+        }
+
+        .bento-item p {
+            font-size: 18px;
+        }
+    }
+</style>

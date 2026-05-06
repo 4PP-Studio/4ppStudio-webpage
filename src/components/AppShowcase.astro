@@ -1,0 +1,250 @@
+---
+---
+
+<div class="app-showcase">
+    <div class="app-showcase-header">
+        <h2>Ürünlerimiz</h2>
+    </div>
+    <div class="showcase-grid">
+        <div class="showcase-item large">
+            <div class="showcase-icon-wrapper">
+                <img src="/icon-borccu.png" alt="Borccu" class="showcase-icon">
+            </div>
+            <div class="showcase-content">
+                <h3>Borccu</h3>
+                <p>Arkadaşlarınızla borç takibini kolaylaştırın. Kimden ne kadar para aldığınızı, kime ne kadar verdiğinizi kolayca takip edin.</p>
+                <div class="app-badges">
+                    <a href="https://play.google.com/store/apps/details?id=com.fourappstudio.borccu" target="_blank" rel="noopener noreferrer">
+                        <img src="/playstore-badge.svg" alt="Get it on Google Play" class="store-badge">
+                    </a>
+                    <a href="https://appgallery.cloud.huawei.com/ag/n/app/C117388849?locale=en_GB&source=appshare&subsource=C117388849&shareTo=com.android.bluetooth&shareFrom=appmarket&shareIds=374a7be3bfa244c6873dbc28ca31da6d_com.android.bluetooth&callType=SHARE" target="_blank" rel="noopener noreferrer">
+                        <img src="/appgallery-badge.svg" alt="Explore it on AppGallery" class="store-badge">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="showcase-item small">
+            <div class="showcase-icon-wrapper">
+                <img src="/icon-2048.jpeg" alt="2048" class="showcase-icon">
+            </div>
+            <div class="showcase-content">
+                <h3>2048</h3>
+                <p>Huawei akıllı saat mağazası için geliştirilen eğlenceli sayı birleştirme oyunu.</p>
+                <div class="app-badges">
+                    <!-- <img src="/appgallery-badge.svg" alt="Explore it on AppGallery" class="store-badge"> -->
+                </div>
+            </div>
+        </div>
+        <div class="showcase-item small">
+            <div class="showcase-icon-wrapper">
+                <img src="/icon-cizgi.png" alt="Çizgi" class="showcase-icon">
+            </div>
+            <div class="showcase-content">
+                <h3>Cizgi</h3>
+                <p>Çizim fikirleri veren ilham almak ve yeteneklerinizi geliştirmek için aradığınız uygulama.</p>
+                <div class="app-badges">
+                    <!-- <img src="/playstore-badge.svg" alt="Get it on Google Play" class="store-badge"> -->
+                </div>
+            </div>
+        </div>
+        <div class="showcase-item large">
+            <div class="showcase-icon-wrapper">
+                <img src="/icon-saticim.png" alt="Saticim" class="showcase-icon" style="">
+            </div>
+            <div class="showcase-content">
+                <h3>Satıcım.com</h3>
+                <p>Türkiye'nin yeni güvenilir alışveriş platformu. İster al, ister sat. Karmaşadan uzak, sadece size ve isteklerinize odaklanan modern pazar yeri platformu.</p>
+                <a href="https://saticim.com" class="website-link" target="_blank" rel="noopener noreferrer">
+                    Siteyi Ziyaret Et
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .app-showcase {
+        padding: 0 20px 120px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .app-showcase-header {
+        text-align: center;
+        margin-bottom: 80px;
+    }
+
+    .app-showcase-header h2 {
+        font-size: clamp(40px, 7vw, 64px);
+        font-weight: 600;
+        margin-bottom: 24px;
+        letter-spacing: -0.02em;
+    }
+
+    .showcase-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 24px;
+    }
+
+    .showcase-item {
+        background: #f5f5f7;
+        border-radius: 28px;
+        padding: 60px 50px;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .showcase-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 100%);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    .showcase-item:hover::before {
+        opacity: 1;
+    }
+
+    .showcase-item:hover {
+        /* transform: scale(1.03); */
+        box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    }
+
+    .showcase-item.large {
+        grid-column: span 8;
+    }
+
+    .showcase-item.small {
+        grid-column: span 4;
+    }
+
+    .showcase-icon-wrapper {
+        width: 80px;
+        height: 80px;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: all 0.5s ease;
+        border-radius: 40px;
+        corner-shape: squircle;
+        position: relative;
+        z-index: 1;
+    }
+
+    .showcase-item:hover .showcase-icon-wrapper {
+        /* transform: scale(1.1) rotate(5deg); */
+    }
+
+    .showcase-icon {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        /* padding: 12px; */
+        border-radius: 40px;
+        corner-shape: squircle;
+    }
+
+    .showcase-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .showcase-content h3 {
+        font-size: 32px;
+        font-weight: 600;
+        margin-bottom: 16px;
+        letter-spacing: -0.01em;
+    }
+
+    .showcase-content p {
+        font-size: 21px;
+        color: #6e6e73;
+        line-height: 1.4;
+        margin-bottom: 20px;
+    }
+
+    .app-badges {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .app-badges a {
+        display: inline-block;
+        transition: opacity 0.3s ease;
+    }
+
+    .app-badges a:hover {
+        opacity: 0.8;
+    }
+
+    .store-badge {
+        height: 40px;
+        width: auto;
+    }
+
+    .website-link {
+        display: inline-block;
+        color: #0071e3;
+        font-size: 21px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .website-link:hover {
+        color: #005bb5;
+        text-decoration: underline;
+    }
+
+    @media (max-width: 1024px) {
+        .showcase-item.large,
+        .showcase-item.small {
+            grid-column: span 6;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .showcase-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .showcase-item.large,
+        .showcase-item.small {
+            grid-column: span 1;
+        }
+
+        .showcase-item {
+            padding: 50px 35px;
+        }
+
+        .showcase-icon-wrapper {
+            width: 64px;
+            height: 64px;
+        }
+
+        .showcase-content h3 {
+            font-size: 26px;
+        }
+
+        .showcase-content p {
+            font-size: 18px;
+        }
+    }
+</style>

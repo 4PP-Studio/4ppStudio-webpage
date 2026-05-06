@@ -1,46 +1,38 @@
-# Astro Starter Kit: Basics
+# 4PP Studio Webpage
 
-```sh
-npm create astro@latest -- --template basics
-```
+Bu repo, 4PP Studio'nun Astro ile geliştirilen statik web sitesidir.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Komutlar
 
-## 🚀 Project Structure
+Tüm komutlar proje kök dizininde çalıştırılır:
 
-Inside of your Astro project, you'll see the following folders and files:
+- `npm install` - Bağımlılıkları yükler.
+- `npm run dev` - Lokal geliştirme sunucusunu başlatır.
+- `npm run build` - Üretim derlemesini `dist/` klasörüne alır.
+- `npm run preview` - Build çıktısını lokal olarak önizler.
+- `npm run deploy` - Build alır ve sadece `dist` çıktısını `prod` branch'ine deploy eder.
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+## Deploy Akışı (GitHub Pages, Action olmadan)
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Bu projede deploy işlemi `deploy.js` ile yapılır:
 
-## 🧞 Commands
+1. `main` (veya bulunduğun branch) üzerinde `npm run build` çalıştırılır.
+2. Geçici bir git worktree ile `prod` branch hazırlanır.
+3. `prod` branch içinde `.git` hariç tüm dosyalar temizlenir.
+4. `dist/` içeriği `prod` branch köküne kopyalanır.
+5. Değişiklik varsa commit ve push yapılır.
 
-All commands are run from the root of the project, from a terminal:
+Bu sayede:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+- `main` branch dosyaları silinmez/değiştirilmez.
+- `.git` klasörü silinmez.
+- `prod` branch'te yalnızca yayınlanacak statik dosyalar bulunur.
 
-## 👀 Want to learn more?
+## GitHub Pages Ayarı
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Repository ayarlarında:
+
+- **Settings > Pages**
+- **Source**: `Deploy from a branch`
+- **Branch**: `prod`
+- **Folder**: `/ (root)`

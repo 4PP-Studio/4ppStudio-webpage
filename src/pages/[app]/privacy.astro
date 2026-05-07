@@ -1,0 +1,56 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PrivacyDocLayout from "../../components/PrivacyDocLayout.astro";
+import PrivacyRedirect from "../../components/PrivacyRedirect.astro";
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { privacyPolicyHref } from "../../utils/privacyHref";
+
+type AppEntry = CollectionEntry<"privacy">;
+
+export async function getStaticPaths() {
+  const policies = await getCollection("privacy");
+  return policies
+    .filter((entry: AppEntry) => Boolean(entry.data.routeSlug && entry.data.appName))
+    .map((entry: AppEntry) => ({
+      params: { app: entry.data.routeSlug },
+      props: { entry, policies },
+    }));
+}
+
+const { entry, policies } = Astro.props as { entry: AppEntry; policies: AppEntry[] };
+const externalUrl = entry.data.externalPrivacyUrl;
+const { Content } = await render(entry);
+
+const otherAppLinks = policies
+  .filter(
+    (item: AppEntry) =>
+      item.id !== entry.id && Boolean(item.data.routeSlug && item.data.appName),
+  )
+  .sort((a: AppEntry, b: AppEntry) => (a.data.order ?? 100) - (b.data.order ?? 100))
+  .map((item: AppEntry) => ({
+    label: item.data.appName ?? item.id,
+    href: privacyPolicyHref(item),
+  }));
+
+const relatedLinks = [{ label: "4PP Studio (Web sitesi)", href: "/privacy" }, ...otherAppLinks];
+
+const displayName = entry.data.appName ?? entry.id;
+---
+
+{
+  externalUrl ? (
+    <PrivacyRedirect href={externalUrl} />
+  ) : (
+    <Layout title={`${displayName} — Gizlilik politikası`}>
+      <PrivacyDocLayout
+        title={`${displayName} gizlilik politikası`}
+        lastUpdated={entry.data.lastUpdated}
+        relatedTitle="Diğer politikalar"
+        relatedLinks={relatedLinks}
+      >
+        <Content />
+      </PrivacyDocLayout>
+    </Layout>
+  )
+}

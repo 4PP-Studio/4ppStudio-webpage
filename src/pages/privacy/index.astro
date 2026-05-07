@@ -1,0 +1,37 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PrivacyDocLayout from "../../components/PrivacyDocLayout.astro";
+import { getCollection, getEntry, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { privacyPolicyHref } from "../../utils/privacyHref";
+
+type AppEntry = CollectionEntry<"privacy">;
+
+const studioEntry = await getEntry("privacy", "main");
+if (!studioEntry) {
+  throw new Error("privacy/main.md not found");
+}
+
+const { Content } = await render(studioEntry);
+const appPolicies = await getCollection("privacy");
+const appLinks = appPolicies
+  .filter((entry: AppEntry) => Boolean(entry.data.routeSlug && entry.data.appName))
+  .sort((a: AppEntry, b: AppEntry) => (a.data.order ?? 100) - (b.data.order ?? 100))
+  .map((entry: AppEntry) => ({
+    label: entry.data.appName ?? entry.id,
+    href: privacyPolicyHref(entry),
+  }));
+
+const pageTitle = studioEntry.data.title ?? "4PP Studio Privacy Policy";
+---
+
+<Layout title={`${pageTitle} — 4PP Studio`}>
+  <PrivacyDocLayout
+    title={pageTitle}
+    lastUpdated={studioEntry.data.lastUpdated}
+    relatedTitle="Uygulama gizlilik politikaları"
+    relatedLinks={appLinks}
+  >
+    <Content />
+  </PrivacyDocLayout>
+</Layout>

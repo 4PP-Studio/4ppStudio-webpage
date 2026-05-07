@@ -1,0 +1,332 @@
+---
+import Footer from "./Footer.astro";
+
+export interface RelatedLink {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  title: string;
+  lastUpdated: string;
+  relatedTitle?: string;
+  relatedLinks?: RelatedLink[];
+}
+
+const {
+  title,
+  lastUpdated,
+  relatedTitle = "Diğer gizlilik politikaları",
+  relatedLinks = [],
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const homeHref = base.endsWith("/") ? base : `${base}/`;
+const logoSrc = `${base}logo-with-text.png`;
+---
+
+<div class="privacy-shell apple-container">
+  <!-- <header class="privacy-top">
+    <a class="privacy-brand" href={homeHref}>
+      <img src={logoSrc} width="160" height="40" alt="4PP Studio — Ana sayfa" />
+    </a>
+    <nav class="privacy-crumb" aria-label="Sayfa konumu">
+      <a href={homeHref}>Ana sayfa</a>
+      <span class="privacy-crumb-sep" aria-hidden="true">/</span>
+      <a href="/privacy">Privacy</a>
+    </nav>
+  </header> -->
+
+  <div class="privacy-hero">
+    <p class="privacy-eyebrow">Gizlilik</p>
+    <h1 class="privacy-title">{title}</h1>
+    <p class="privacy-meta">
+      <time datetime={lastUpdated}>Son güncelleme: {lastUpdated}</time>
+    </p>
+  </div>
+
+  <article class="privacy-doc">
+    <div class="privacy-prose">
+      <slot />
+    </div>
+  </article>
+
+  {
+    relatedLinks.length > 0 && (
+      <section class="privacy-related" aria-labelledby="privacy-related-heading">
+        <h2 id="privacy-related-heading" class="privacy-related-title">
+          {relatedTitle}
+        </h2>
+        <ul class="privacy-related-list">
+          {relatedLinks.map((link) => {
+            const isExternal =
+              link.href.startsWith("http://") || link.href.startsWith("https://");
+            return (
+              <li>
+                <a
+                  class="privacy-related-link"
+                  href={link.href}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noopener noreferrer" : undefined}
+                >
+                  {link.label}
+                  <span class="privacy-related-arrow" aria-hidden="true">→</span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    )
+  }
+
+  <Footer />
+</div>
+
+<style>
+  .privacy-shell {
+    position: relative;
+    min-height: 100vh;
+    padding: 0 20px 0;
+    overflow-x: clip;
+  }
+
+  .privacy-top {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-top: 28px;
+    padding-bottom: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 24px;
+  }
+
+  .privacy-brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    opacity: 0.92;
+    transition: opacity 0.2s ease;
+  }
+
+  .privacy-brand:hover {
+    opacity: 1;
+  }
+
+  .privacy-brand img {
+    height: 36px;
+    width: auto;
+    display: block;
+  }
+
+  .privacy-crumb {
+    font-size: 0.8125rem;
+    color: #6e6e73;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .privacy-crumb a {
+    color: #0071e3;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .privacy-crumb a:hover {
+    text-decoration: underline;
+  }
+
+  .privacy-crumb-sep {
+    color: #c7c7cc;
+    user-select: none;
+  }
+
+  .privacy-hero {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 0 28px;
+    text-align: center;
+  }
+
+  .privacy-eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #0071e3;
+    margin-bottom: 10px;
+  }
+
+  .privacy-title {
+    font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    max-width: 24ch;
+    margin: 0 auto 12px;
+    color: #1d1d1f;
+  }
+
+  .privacy-meta {
+    font-size: 0.9375rem;
+    color: #6e6e73;
+  }
+
+  .privacy-doc {
+    position: relative;
+    max-width: 760px;
+    margin: 0 auto 48px;
+    padding: 0 0 8px;
+  }
+
+  .privacy-prose {
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    color: #1d1d1f;
+  }
+
+  .privacy-prose :global(p) {
+    margin-bottom: 1rem;
+    text-align: justify;
+  }
+
+  .privacy-prose :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .privacy-prose :global(h2) {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 2rem 0 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e8e8ed;
+  }
+
+  .privacy-prose :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .privacy-prose :global(h3) {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  .privacy-prose :global(ul),
+  .privacy-prose :global(ol) {
+    margin: 0 0 1rem;
+    padding-left: 1.35rem;
+  }
+
+  .privacy-prose :global(li) {
+    margin-bottom: 0.45rem;
+    color: #3a3a3c;
+  }
+
+  .privacy-prose :global(li::marker) {
+    color: #0071e3;
+  }
+
+  .privacy-prose :global(a) {
+    color: #0071e3;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .privacy-prose :global(a:hover) {
+    text-decoration: underline;
+  }
+
+  .privacy-prose :global(strong) {
+    font-weight: 600;
+    color: #1d1d1f;
+  }
+
+  .privacy-related {
+    position: relative;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .privacy-related-title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin-bottom: 16px;
+    color: #1d1d1f;
+  }
+
+  .privacy-related-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+  }
+
+  .privacy-related-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 18px;
+    background: #f5f5f7;
+    border-radius: 14px;
+    color: #1d1d1f;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    border: 1px solid transparent;
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .privacy-related-link:hover {
+    background: #fff;
+    border-color: #e8e8ed;
+    transform: translateY(-1px);
+  }
+
+  .privacy-related-arrow {
+    color: #0071e3;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 768px) {
+    .privacy-shell {
+      padding: 0 16px;
+    }
+
+    .privacy-top {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .privacy-hero {
+      text-align: left;
+      padding-top: 20px;
+    }
+
+    .privacy-title {
+      margin-left: 0;
+      margin-right: 0;
+      max-width: none;
+    }
+
+    .privacy-prose {
+      font-size: 1rem;
+    }
+  }
+
+</style>

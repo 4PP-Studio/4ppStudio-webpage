@@ -1,0 +1,22 @@
+---
+import PrivacyRedirect from "../../components/PrivacyRedirect.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { privacyPolicyHref } from "../../utils/privacyHref";
+
+type AppEntry = CollectionEntry<"privacy">;
+
+export async function getStaticPaths() {
+  const policies = await getCollection("privacy");
+  return policies
+    .filter((entry: AppEntry) => Boolean(entry.data.routeSlug && entry.data.appName))
+    .map((entry: AppEntry) => ({
+      params: { app: entry.data.routeSlug },
+      props: { redirectHref: privacyPolicyHref(entry) },
+    }));
+}
+
+const { redirectHref } = Astro.props as { redirectHref: string };
+---
+
+<PrivacyRedirect href={redirectHref} />

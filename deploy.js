@@ -112,10 +112,12 @@ function main() {
     const localBranch = runCapture("git", ["show-ref", "--verify", "--quiet", `refs/heads/${PROD_BRANCH}`]);
     const remoteBranch = runCapture("git", ["show-ref", "--verify", "--quiet", `refs/remotes/origin/${PROD_BRANCH}`]);
 
-    if (localBranch.ok) {
-      run("git", ["worktree", "add", "--force", worktreePath, PROD_BRANCH]);
-    } else if (remoteBranch.ok) {
+    // Always prefer origin/<branch> as base when it exists.
+    // This prevents non-fast-forward push errors when local branch is stale.
+    if (remoteBranch.ok) {
       run("git", ["worktree", "add", "--force", "-B", PROD_BRANCH, worktreePath, `origin/${PROD_BRANCH}`]);
+    } else if (localBranch.ok) {
+      run("git", ["worktree", "add", "--force", worktreePath, PROD_BRANCH]);
     } else {
       // Create first prod deploy on an orphan branch so no source files/history leak in.
       run("git", ["worktree", "add", "--force", "--detach", worktreePath, "HEAD"]);
